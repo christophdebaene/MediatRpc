@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using MediatRpc;
-using MediatRpc.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Sample.Domain;
 
@@ -35,6 +34,6 @@ public class TodoDetailModel
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
-    public string Priority { get; set; }    
+    public string Priority { get; set; }
 }
 

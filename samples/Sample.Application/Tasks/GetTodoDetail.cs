@@ -13,10 +13,10 @@ public record GetTodoDetail : IRequest<JsonElement>
 }
 public class GetTodoDetailHandler : IRequestHandler<GetTodoDetail, JsonElement>
 {
-    private readonly TodoContext _context;    
+    private readonly TodoContext _context;
     public GetTodoDetailHandler(TodoContext context)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));        
+        _context = context ?? throw new ArgumentNullException(nameof(context));
     }
     public async Task<JsonElement> Handle(GetTodoDetail request, CancellationToken cancellationToken)
     {
@@ -25,7 +25,8 @@ public class GetTodoDetailHandler : IRequestHandler<GetTodoDetail, JsonElement>
         {
             Converters ={
                 new JsonStringEnumConverter()
-        }});
+        }
+        });
 
         return jsonElement;
     }

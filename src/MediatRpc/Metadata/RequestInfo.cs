@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using MediatRpc.Contracts;
 using System;
 using System.Linq;
 

@@ -55,7 +55,7 @@ public class JsonRpcController : ControllerBase
     [HttpPost]
     [Consumes("multipart/form-data")]
     [DisableRequestSizeLimit]
-    public async Task<IActionResult> Post([FromForm] string jsonRpc, [FromForm(Name ="files")] IFormFileCollection files, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromForm] string jsonRpc, [FromForm(Name = "files")] IFormFileCollection files, CancellationToken cancellationToken)
     {
         var jsonRpcRequest = JsonRpcRequest.Create(jsonRpc);
 
@@ -80,7 +80,7 @@ public class JsonRpcController : ControllerBase
         requestAction?.Invoke(request);
 
         try
-        {
+        {            
             var response = await processor.Send(request, cancellationToken);
             return response is FileResponse fileResponse
                 ? File(fileResponse.Data, fileResponse.ContentType, fileResponse.Filename)

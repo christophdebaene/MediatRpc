@@ -8,7 +8,7 @@ namespace MediatRpc.Metadata;
 internal static class TypeExtensions
 {
     public static IEnumerable<Type> ScanRequestTypes(this Assembly assembly)
-    {        
+    {
         return assembly
             .GetExportedTypes()
             .Where(x => !x.IsAbstract && !x.IsInterface && IsRequest(x));
@@ -28,7 +28,7 @@ internal static class TypeExtensions
         }
     }
     public static bool IsRequest(this Type type)
-    {        
+    {
         return type.GetInterfaces().Any(x => x.FullName == "MediatR.IBaseRequest");
     }
     public static Type GetResponseType(this Type type)

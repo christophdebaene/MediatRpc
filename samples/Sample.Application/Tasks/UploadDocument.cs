@@ -31,14 +31,14 @@ public class UploadDocumentHandler : IRequestHandler<UploadDocument>
                 Data = await file.ReadAsBytesAsync()
             });
         }
-        
+
         await _context.AddRangeAsync(documents, cancellationToken);
 
         var todo = await _context.FindAsync<Todo>(request.TodoId);
         todo.Documents = documents.Select(x => x.Id).ToList();
 
         await _context.SaveChangesAsync();
-        
+
         return;
     }
 }

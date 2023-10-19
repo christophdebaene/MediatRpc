@@ -6,7 +6,7 @@ namespace Sample.Domain;
 public class TodoContext : DbContext
 {
     public TodoContext(DbContextOptions<TodoContext> options) : base(options)
-    { 
+    {
     }
     public DbSet<Todo> Tasks { get; set; }
     public DbSet<User> Users { get; set; }
@@ -21,7 +21,7 @@ public class TodoContext : DbContext
 
         modelBuilder.Entity<Todo>()
             .Property(x => x.Documents)
-            .HasConversion(converter); 
+            .HasConversion(converter);
 
         modelBuilder.Entity<Todo>()
             .Property(x => x.Priority)

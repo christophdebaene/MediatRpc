@@ -5,10 +5,8 @@ using System.Linq;
 namespace MediatRpc.Metadata;
 public class TypeCatalog
 {
-    private Dictionary<Type, RequestInfo> _lookupByType =>
-        Requests.ToDictionary(x => x.Request);
-    private Dictionary<string, RequestInfo> _lookupByContract =>
-        Requests.ToDictionary(x => x.Contract.ToString());
+    private Dictionary<Type, RequestInfo> _lookupByType => Requests.ToDictionary(x => x.Request);
+    private Dictionary<string, RequestInfo> _lookupByContract => Requests.ToDictionary(x => x.Contract.ToString());
     public IEnumerable<RequestInfo> Requests { get; }
     public TypeCatalog(IEnumerable<RequestInfo> requests)
     {

@@ -16,7 +16,7 @@ public class User
     [MaxLength(2)]
     public string Country { get; set; }
     public Role Roles { get; set; }
-    public bool IsInRole(Role role) => Roles.HasFlag(role);    
+    public bool IsInRole(Role role) => Roles.HasFlag(role);
     public User()
     {
     }
