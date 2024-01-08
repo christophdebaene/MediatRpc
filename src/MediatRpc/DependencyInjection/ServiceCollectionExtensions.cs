@@ -30,7 +30,7 @@ public static class ServiceCollectionExtensions
                 throw new Exception($"Multiple handlers for {requestType.FullName}");
 
             var requestContract = configuration.ContractResolver(requestType);
-            
+
             requests.Add(new RequestInfo(
                 requestType,
                 handlers.FirstOrDefault(),
@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
                 throw new System.Exception($"Request {request} is unknown");
         }
 
-        var typeCatalog = new TypeCatalog(requests);        
+        var typeCatalog = new RequestCatalog(requests);
         return services.AddSingleton(typeCatalog);
-    }    
+    }
 }

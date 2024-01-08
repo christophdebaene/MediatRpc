@@ -18,6 +18,6 @@ public static class JsonRpcResults
                ? Results.File(fileResponse.Data, fileResponse.ContentType, fileResponse.Filename)
                : Ok(id, response);
     public static IResult InvalidRequest(string id) => Error(id, JsonRpcError.InvalidRequest);
-    public static IResult MethodNotFound(string id, string methodName) => Error(id, JsonRpcError.MethodNotFound(methodName));    
-    public static IResult InvalidParams(string id, string methodName) => Error(id, JsonRpcError.MethodNotFound(methodName));    
+    public static IResult MethodNotFound(string id, string methodName) => Error(id, JsonRpcError.MethodNotFound(methodName));
+    public static IResult InvalidParams(string id, string methodName) => Error(id, JsonRpcError.MethodNotFound(methodName));
 }

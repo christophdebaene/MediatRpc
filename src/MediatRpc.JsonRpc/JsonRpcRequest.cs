@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace MediatRpc.JsonRpc;
 public class JsonRpcRequest
@@ -16,9 +19,24 @@ public class JsonRpcRequest
 
     [JsonPropertyName("params")]
     public JsonElement Params { get; set; }
-    public static JsonRpcRequest Create(string json)
+
+    public static async ValueTask<JsonRpcRequest> BindAsync(HttpContext context)
     {
-        return JsonSerializer.Deserialize<JsonRpcRequest>(json);
+        if (!context.Request.Body.CanSeek)
+        {
+            context.Request.EnableBuffering();
+        }
+        
+        if (context.Request.HasFormContentType)
+        {
+            var jsonRpc = context.Request.Form["jsonRpc"];
+            return JsonSerializer.Deserialize<JsonRpcRequest>(jsonRpc);            
+        }
+        else
+        {
+            context.Request.Body.Position = 0;
+            return await context.Request.ReadFromJsonAsync<JsonRpcRequest>();
+        }
     }
     public object CreateInstance(Type type)
     {

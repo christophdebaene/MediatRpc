@@ -5,7 +5,7 @@ public record RequestContract(string Namespace, string ServiceName, string Opera
 {
     public override string ToString()
     {
-        string[] parts = { Namespace, ServiceName, OperationName };
-        return string.Join(".", parts.Where(x => string.IsNullOrWhiteSpace(x)));
+        string[] parts = [Namespace, ServiceName, OperationName];
+        return string.Join(".", parts.Where(x => !string.IsNullOrWhiteSpace(x)));
     }
 }

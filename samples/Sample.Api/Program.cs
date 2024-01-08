@@ -3,7 +3,7 @@ using MediatRpc;
 using MediatRpc.DependencyInjection;
 using MediatRpc.JsonRpc;
 using MediatRpc.Metadata;
-using Microsoft.AspNetCore.Mvc;
+using MediatRpc.OpenApi;
 using Microsoft.EntityFrameworkCore;
 using Sample.Domain;
 using System.Reflection;
@@ -25,26 +25,34 @@ builder.Services.AddMediatRpc(cfg =>
 
 var app = builder.Build();
 
-app.MapPost("/jsonrpc", async (ISender sender, TypeCatalog catalog, [FromBody] JsonRpcRequest jsonRpcRequest, CancellationToken cancellationToken) =>
+app.MapGet("/openapi", (RequestCatalog catalog) =>
 {
-    if (!catalog.Exist(jsonRpcRequest.Method))
-        JsonRpcResults.MethodNotFound(jsonRpcRequest.Id, jsonRpcRequest.Method);
+    return ReDocResults.OpenApi(catalog);
+    //var openApiDocument = OpenApiService.Create(catalog, new OpenApiConfiguration());
+    //return openApiDocument.ToJson();
+});
 
-    var requestInfo = catalog[jsonRpcRequest.Method];
-    var request = jsonRpcRequest.CreateInstance(requestInfo.Request);
+app.MapGet("/redoc", () =>
+{
+    return ReDocResults.Response();
+});
 
+app.MapPost("/jsonrpc", async (ISender sender, JsonRpcRequest jsonRpcRequest, MediatRequest request, CancellationToken cancellationToken) =>
+{
     try
     {
-        var response = await sender.Send(request, cancellationToken);
-        return JsonRpcResults.Response(jsonRpcRequest.Id, response);
+        var response = await sender.Send(request.Message, cancellationToken);
+        return response is FileResponse fileResponse
+            ? Results.File(fileResponse.Data, fileResponse.ContentType, fileResponse.Filename)
+            : JsonRpcResults.Response(jsonRpcRequest.Id, response);
     }
-    catch (Exception ex)
+    catch (Exception exc)
     {
         return JsonRpcResults.Error(jsonRpcRequest.Id, new JsonRpcError
         {
             Code = JsonRpcErrorCode.InternalError,
-            Message = ex.Message,
-            Data = ex.Data
+            Message = exc.Message,
+            Data = exc.Data
         });
     }
 });

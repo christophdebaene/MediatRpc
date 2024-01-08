@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\JsonRpcDescription.md" />
+    <None Remove="Resources\Redoc.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\JsonRpcDescription.md" />
+    <EmbeddedResource Include="Resources\Redoc.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="2.1.4" />
+    <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="10.9.0" />
+    <PackageReference Include="NSwag.Core" Version="13.20.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MediatRpc\MediatRpc.csproj" />
+  </ItemGroup>
+
+</Project>
