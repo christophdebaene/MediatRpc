@@ -1,29 +1,23 @@
 ﻿using MediatRpc.Metadata;
 using MediatRpc.OpenApi.Utils;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using NJsonSchema.Generation;
 using NSwag;
+using System.Text.Json;
 
 namespace MediatRpc.OpenApi;
 public class OpenApiConfiguration
 {
     public OpenApiInfo Info { get; set; }
     public Func<RequestInfo, string> Description { get; set; } = (x) => x.Description;
-    public JsonSchemaGeneratorSettings GeneratorSettings { get; set; } = new JsonSchemaGeneratorSettings
+    public JsonSchemaGeneratorSettings GeneratorSettings { get; set; } = new SystemTextJsonSchemaGeneratorSettings
     {           
-        FlattenInheritanceHierarchy = true,        
-        SerializerSettings = new JsonSerializerSettings
+        FlattenInheritanceHierarchy = true,
+        SerializerOptions = new System.Text.Json.JsonSerializerOptions
         {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new DefaultNamingStrategy()
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+            Converters =
+            {            
             },
-            Converters = new List<JsonConverter>
-            {
-                new StringEnumConverter()
-            }
         }
     };
     public OpenApiConfiguration()

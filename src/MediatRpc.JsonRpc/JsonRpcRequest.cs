@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -30,7 +33,8 @@ public class JsonRpcRequest
         if (context.Request.HasFormContentType)
         {
             var jsonRpc = context.Request.Form["jsonRpc"];
-            return JsonSerializer.Deserialize<JsonRpcRequest>(jsonRpc);
+            var options = context.RequestServices.GetRequiredService<IOptions<JsonOptions>>().Value; 
+            return JsonSerializer.Deserialize<JsonRpcRequest>(jsonRpc, options.SerializerOptions);
         }
         else
         {

@@ -16,6 +16,10 @@ builder.Services.AddDbContext<TodoContext>((options =>
     options.UseInMemoryDatabase("Todo");
 }));
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+{    
+});
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
 builder.Services.AddMediatRpc(cfg =>
 {

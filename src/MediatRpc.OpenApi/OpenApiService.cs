@@ -6,7 +6,6 @@ using System.Text.Json;
 namespace MediatRpc.OpenApi;
 public class OpenApiService
 {
-
     public static OpenApiDocument Create(RequestCatalog catalog, OpenApiConfiguration configuration)
     {
         var document = new OpenApiDocument
@@ -31,6 +30,7 @@ public class OpenApiService
                      
         foreach (var request in catalog.Requests.OrderBy(x => x.Contract.ServiceName))
         {
+            
             document.Paths.Add($"/{request.Contract.ServiceName}/{request.Contract.OperationName}", new OpenApiPathItem
             {
                 {
@@ -59,6 +59,7 @@ public class OpenApiService
                                 }
                             }
                         },
+                        /*
                         Tags = new List<string> { request.Contract.ServiceName },
                         ExtensionData = new Dictionary<string, object>
                         {
@@ -84,6 +85,7 @@ public class OpenApiService
                                 }
                             }
                         }
+                        */
                     }
                 }
             });
@@ -103,6 +105,6 @@ public class OpenApiService
             }
         };
 
-        return JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });        
+        return JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });
     }
 }
