@@ -42,18 +42,11 @@ app.MapPost("/jsonrpc", async (ISender sender, JsonRpcRequest jsonRpcRequest, Me
     try
     {
         var response = await sender.Send(request.Message, cancellationToken);
-        return response is FileResponse fileResponse
-            ? Results.File(fileResponse.Data, fileResponse.ContentType, fileResponse.Filename)
-            : JsonRpcResults.Response(jsonRpcRequest.Id, response);
+        return JsonRpcResults.Response(jsonRpcRequest.Id, response);
     }
     catch (Exception exc)
     {
-        return JsonRpcResults.Error(jsonRpcRequest.Id, new JsonRpcError
-        {
-            Code = JsonRpcErrorCode.InternalError,
-            Message = exc.Message,
-            Data = exc.Data
-        });
+        return JsonRpcResults.Error(jsonRpcRequest.Id, JsonRpcError.InternalError(exc));
     }
 });
 

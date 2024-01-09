@@ -30,7 +30,7 @@ public class JsonRpcRequest
         if (context.Request.HasFormContentType)
         {
             var jsonRpc = context.Request.Form["jsonRpc"];
-            return JsonSerializer.Deserialize<JsonRpcRequest>(jsonRpc);            
+            return JsonSerializer.Deserialize<JsonRpcRequest>(jsonRpc);
         }
         else
         {
