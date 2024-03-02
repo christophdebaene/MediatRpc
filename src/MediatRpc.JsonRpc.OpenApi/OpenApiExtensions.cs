@@ -1,23 +1,23 @@
 ﻿using MediatRpc.Metadata;
-using MediatRpc.Tools.ClientApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NSwag;
 
-namespace MediatRpc.Tools.OpenApi;
+namespace MediatRpc.JsonRpc.OpenApi;
 
 public static class OpenApiExtensions
 {
-    public static IServiceCollection AddOpenApi(this IServiceCollection services, Action<OpenApiConfiguration>? configuration = null)
+    public static IServiceCollection AddJsonRpcOpenApi(this IServiceCollection services, Action<OpenApiConfiguration>? configuration)
     {
         var config = new OpenApiConfiguration();
         configuration?.Invoke(config);
-        return services.AddOpenApi(config);
+        return services.AddJsonRpcOpenApi(config);
     }
-    public static IServiceCollection AddOpenApi(this IServiceCollection services, OpenApiConfiguration configuration = null)
+    internal static IServiceCollection AddJsonRpcOpenApi(this IServiceCollection services, OpenApiConfiguration configuration)
     {
         var jsonOptions = services.AddScoped((serviceProvider) =>
         {
@@ -43,12 +43,12 @@ public static class OpenApiExtensions
 
         return services;
     }
-    public static IEndpointRouteBuilder UseOpenApi(this IEndpointRouteBuilder endpoints, string routePrefix = "/openapi")
+    public static IEndpointRouteBuilder UseJsonRpcOpenApi(this IEndpointRouteBuilder endpoints, string routePrefix = "/openapi")
     {
-        endpoints.MapGet(routePrefix, (OpenApiDocument openApiDocument, string format = "json", bool highlight = false) =>
+        endpoints.MapGet(routePrefix, ([FromServices] OpenApiDocument openApiDocument, [FromQuery] string format = "json") =>
         {
             var openApi = format == "json" ? openApiDocument.ToJson() : openApiDocument.ToYaml();
-            return highlight ? new HighlightCodeResult("OpenApi Specification", openApi, format) : format == "json" ? Results.Text(openApi, "application/json") : Results.Text(openApi, "text/plain");
+            return format == "json" ? Results.Text(openApi, "application/json") : Results.Text(openApi, "text/plain");            
         });
 
         return endpoints;

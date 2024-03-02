@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\MediatRpc.JsonRpc.OpenApi\MediatRpc.JsonRpc.OpenApi.csproj" />
     <ProjectReference Include="..\..\src\MediatRpc.JsonRpc\MediatRpc.JsonRpc.csproj" />
-    <ProjectReference Include="..\..\src\MediatRpc.Tools\MediatRpc.Tools.csproj" />
+    <ProjectReference Include="..\..\src\NScalar\NScalar.csproj" />
     <ProjectReference Include="..\Sample.Application\Sample.Application.csproj" />
   </ItemGroup>
 

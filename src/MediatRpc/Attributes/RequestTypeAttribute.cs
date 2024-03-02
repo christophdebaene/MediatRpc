@@ -7,7 +7,6 @@ namespace MediatRpc;
 public class RequestTypeAttribute(RequestType type) : Attribute
 {
     public RequestType RequestType { get; } = type;
-
     public static RequestType Get(Type type)
     {
         var attr = type.GetCustomAttribute<RequestTypeAttribute>(false);

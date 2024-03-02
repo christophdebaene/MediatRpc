@@ -2,7 +2,6 @@
 using System.Text.Json.Serialization;
 
 namespace MediatRpc.JsonRpc;
-
 public record JsonRpcErrorResponse
 {
     [JsonPropertyName("id")]

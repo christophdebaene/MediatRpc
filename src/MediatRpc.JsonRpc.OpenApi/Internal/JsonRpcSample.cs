@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace MediatRpc.Tools.OpenApi;
+namespace MediatRpc.JsonRpc.OpenApi;
 internal static class JsonRpcSample
 {
     public static string Create(string method)

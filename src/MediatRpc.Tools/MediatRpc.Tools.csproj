@@ -8,14 +8,12 @@
 
   <ItemGroup>
     <None Remove="Templates\HighlightCode.html" />
-    <None Remove="Templates\Scalar.html" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Templates\CSharp.handlebars" />
     <EmbeddedResource Include="Templates\HighlightCode.html" />
     <EmbeddedResource Include="Templates\Redoc.html" />
-    <EmbeddedResource Include="Templates\Scalar.html" />
   </ItemGroup>
 
   <ItemGroup>

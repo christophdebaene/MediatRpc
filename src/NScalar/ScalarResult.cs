@@ -1,10 +1,11 @@
-﻿using MediatRpc.Tools.Templates;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using NScalar.Templates;
+using System.Collections.Specialized;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 
-namespace MediatRpc.Tools.Scalar;
+namespace NScalar;
 
 public class ScalarResult(ScalarConfiguration configuration) : IResult
 {
@@ -22,13 +23,14 @@ public class ScalarResult(ScalarConfiguration configuration) : IResult
     }
     string GetScalarHtml()
     {
-        var model = new
+        var model = new Dictionary<string, string>
         {
-            Title = configuration.Title,
-            SpecUrl = configuration.SpecUrl,
-            Options = JsonSerializer.Serialize(configuration.Options, _serializerOptions)
+            { "Title", configuration.Title },
+            { "SpecUrl", configuration.SpecUrl },
+            { "ProxyUrl", configuration.ProxyUrl },
+            { "Options", JsonSerializer.Serialize(configuration.Options, _serializerOptions) }
         };
 
-        return TemplateRenderer.Render("Scalar.html", model);
+        return TemplateRenderer.Render(model);
     }
 }

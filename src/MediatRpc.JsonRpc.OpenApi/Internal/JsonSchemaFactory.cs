@@ -3,7 +3,7 @@ using NJsonSchema;
 using NJsonSchema.Generation;
 using NSwag;
 
-namespace MediatRpc.Tools.OpenApi;
+namespace MediatRpc.JsonRpc.OpenApi;
 
 internal class JsonSchemaFactory(OpenApiDocument document, JsonSchemaGeneratorSettings settings)
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace MediatRpc.Tools.Scalar;
+namespace NScalar;
 
 public static partial class ScalarExtensions
 {

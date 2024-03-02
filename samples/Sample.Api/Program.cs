@@ -1,9 +1,8 @@
 using MediatRpc;
 using MediatRpc.DependencyInjection;
-using MediatRpc.Tools.OpenApi;
-using MediatRpc.Tools.Redoc;
-using MediatRpc.Tools.Scalar;
+using MediatRpc.JsonRpc.OpenApi;
 using Microsoft.EntityFrameworkCore;
+using NScalar;
 using Sample.Api.Endpoints;
 using Sample.Application;
 using System.Reflection;
@@ -26,11 +25,13 @@ builder.Services.AddMediatRpc(cfg =>
     cfg.RegisterServicesFromAssemblies(assemblies);
     cfg.RequestName = type => new RequestName("MyApp", type.Namespace!.Split(".").Last(), type.Name);
 });
+builder.Services.AddJsonRpcOpenApi((config) => { });
+
 
 var app = builder.Build();
-app.UseOpenApi();
 app.UseScalar();
-app.UseRedoc();
+app.UseJsonRpcOpenApi();
 app.MapJsonRpc();
+app.MapScalar();
 
 app.Run();

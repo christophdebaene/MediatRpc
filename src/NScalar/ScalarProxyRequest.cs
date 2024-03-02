@@ -1,13 +1,21 @@
-﻿using MediatRpc.JsonRpc;
-using MediatRpc.Metadata;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Json;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
-namespace MediatRpc.Tools.Scalar;
+namespace NScalar;
 
+public class ScalarProxyRequest
+{
+    public string Method { get; set; }
+    public string Url { get; set; }
+    public JsonElement Data { get; set; }
+    public static async ValueTask<ScalarProxyRequest?> BindAsync(HttpContext context)
+    {
+        var request = await context.Request.ReadFromJsonAsync<ScalarProxyRequest>();
+        return request;
+    }
+}
+
+/*
 public class ScalarProxyRequest : JsonRpcEndpointResult
 {
     public static async ValueTask<ScalarProxyRequest> BindAsync(HttpContext context)
@@ -37,3 +45,4 @@ public class ScalarProxyRequest : JsonRpcEndpointResult
     }
     internal record ScalarProxyBody(string Method, string Url, JsonElement Data);
 }
+*/

@@ -2,7 +2,7 @@
 using NSwag;
 using System.Text.Json;
 
-namespace MediatRpc.Tools.OpenApi;
+namespace MediatRpc.JsonRpc.OpenApi;
 
 public class OpenApiConfiguration
 {

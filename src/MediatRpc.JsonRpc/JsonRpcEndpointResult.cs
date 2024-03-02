@@ -12,7 +12,7 @@ public class JsonRpcEndpointResult
     public JsonRpcEndpoint? Endpoint { get; init; }
     public static async ValueTask<JsonRpcEndpointResult> BindAsync(HttpContext context)
     {
-        var result = await JsonRpcRequest.TryParseAsync(context);
+        var result = await JsonRpcRequestResult.BindAsync(context);
         if (result.Error is not null)
         {
             return new JsonRpcEndpointResult

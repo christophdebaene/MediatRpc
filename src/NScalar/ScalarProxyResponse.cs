@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MediatRpc.Tools.Scalar;
+namespace NScalar;
 
 public class ScalarProxyResponse
 {

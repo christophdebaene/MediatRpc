@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using MediatRpc;
 
 namespace Sample.Application.Misc;
 
+[Query]
 public class Ping : IRequest<string>
 {
 }

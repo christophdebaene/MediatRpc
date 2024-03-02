@@ -1,7 +1,6 @@
 ﻿using NJsonSchema;
 
-namespace MediatRpc.Tools.OpenApi;
-
+namespace MediatRpc.JsonRpc.OpenApi;
 public class JsonRpcExtension
 {
     public bool isFileRequest { get; set; }

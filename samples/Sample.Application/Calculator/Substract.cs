@@ -1,6 +1,9 @@
 ﻿using MediatR;
+using MediatRpc;
 
 namespace Sample.Application.Calculator;
+
+[Query]
 public class Substract : IRequest<long>
 {
     public long X { get; set; }

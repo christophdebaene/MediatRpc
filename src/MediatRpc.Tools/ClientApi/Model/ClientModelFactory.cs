@@ -1,5 +1,4 @@
 ﻿using MediatRpc.Tools.ClientApi.Extensions;
-using MediatRpc.Tools.OpenApi;
 using NJsonSchema.CodeGeneration.CSharp;
 using NSwag;
 using static MediatRpc.Tools.ClientApi.Extensions.OpenApiExtensions;
@@ -24,7 +23,7 @@ public static class ClientModelFactory
         foreach (var pathItem in document.Paths)
         {
             var operation = pathItem.Value.First().Value;
-            var jsonRpcExtension = operation.GetJsonRpcExtension();
+            //var jsonRpcExtension = operation.GetJsonRpcExtension();
 
             var contract = RequestName.Parse(operation.OperationId);
             var clientService = clientModel[contract.ServiceName];
@@ -37,7 +36,7 @@ public static class ClientModelFactory
                 Request = contract.Name,
                 JsonRpcMethod = operation.OperationId,
                 ResponseType = GetClientType(schemaDescriptor, ClientType.CSharp),
-                IsFileRequest = jsonRpcExtension.isFileRequest
+                //IsFileRequest = jsonRpcExtension.isFileRequest
             };
 
             clientService.Operations.Add(clientOperation);

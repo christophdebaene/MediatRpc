@@ -2,7 +2,7 @@
 using NSwag;
 using System.Data;
 
-namespace MediatRpc.Tools.OpenApi;
+namespace MediatRpc.JsonRpc.OpenApi;
 internal class OpenApiFactory
 {
     public static OpenApiDocument Create(EndpointCatalog catalog, OpenApiConfiguration configuration)

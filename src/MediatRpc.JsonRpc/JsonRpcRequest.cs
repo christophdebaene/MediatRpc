@@ -1,14 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Json;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace MediatRpc.JsonRpc;
 public record JsonRpcRequest
@@ -73,34 +65,6 @@ public record JsonRpcRequest
         {
             request = null;
             return JsonRpcErrorResponse.ParseError(null, exc);
-        }
-    }
-    public static async Task<(JsonRpcErrorResponse? Error, JsonRpcRequest? Request)> TryParseAsync(HttpContext context)
-    {
-        var serializerOptions = context.RequestServices.GetRequiredService<IOptions<JsonOptions>>().Value.SerializerOptions;
-
-        if (context.Request.HasFormContentType)
-        {
-            var content = context.Request.Form["jsonrpc"].FirstOrDefault();
-            var error = TryParse(content, serializerOptions, out JsonRpcRequest? request);
-            return (error, request);
-        }
-        else
-        {
-            if (!context.Request.Body.CanSeek)
-            {
-                context.Request.EnableBuffering();
-            }
-
-            context.Request.Body.Position = 0;
-
-            var reader = new StreamReader(context.Request.Body, Encoding.UTF8);
-            var body = await reader.ReadToEndAsync();
-
-            context.Request.Body.Position = 0;
-
-            var error = TryParse(body, serializerOptions, out JsonRpcRequest? request);
-            return (error, request);
         }
     }
 }

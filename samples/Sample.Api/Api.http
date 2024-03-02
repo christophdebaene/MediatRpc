@@ -1,14 +1,14 @@
-@Api_HostAddress = http://localhost:5075
+@Api_HostAddress = http://localhost:5075/jsonrpc
 
 
 ### CreateTaskItem
-POST {{Api_HostAddress}}/calculator/add
+POST {{Api_HostAddress}}
 Content-Type: application/json
 
 {
   "id": "{{$guid}}",
-  "jsonrpc": "2.0"
-  "method": "Calculator.Add",
+  "jsonrpc": "2.0",
+  "method": "MyApp.Calculator.Add",
   "params": {
     "X": 5,
     "Y": 8

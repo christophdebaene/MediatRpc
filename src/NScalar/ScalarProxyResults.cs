@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace MediatRpc.Tools.Scalar;
+namespace NScalar;
 
 public static class ScalarProxyResults
 {
