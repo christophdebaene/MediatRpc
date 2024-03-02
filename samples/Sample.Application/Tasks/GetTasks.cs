@@ -1,39 +1,23 @@
 ﻿using MediatR;
 using MediatRpc;
 using Microsoft.EntityFrameworkCore;
-using Sample.Domain;
+using Sample.Application.Tasks.Types;
 
 namespace Sample.Application.Tasks;
 
 [Query]
-[RequestContract("MyApp", "Tasks", "GetTasks")]
-public record GetTasks : IRequest<IReadOnlyList<TodoDetailModel>>
+public record GetTasks : IRequest<IReadOnlyList<TaskHeader>>
 {
 }
-public class GetTasksHandler : IRequestHandler<GetTasks, IReadOnlyList<TodoDetailModel>>
+public record TaskHeader(Guid Id, string Title, TaskPriority Priority);
+
+public class GetTasksHandler(ApplicationContext context) : IRequestHandler<GetTasks, IReadOnlyList<TaskHeader>>
 {
-    private readonly TodoContext _context;
-    public GetTasksHandler(TodoContext context)
+    public async Task<IReadOnlyList<TaskHeader>> Handle(GetTasks query, CancellationToken cancellationToken)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
-    public async Task<IReadOnlyList<TodoDetailModel>> Handle(GetTasks query, CancellationToken cancellationToken)
-    {
-        return await _context.Set<Todo>()
+        return await context.Tasks
            .AsNoTracking()
-           .Select(x => new TodoDetailModel
-           {
-               Id = x.Id,
-               Title = x.Title,
-               Priority = x.Priority.ToString()
-           })
+           .Select(x => new TaskHeader(x.Id, x.Title, x.Priority))
            .ToListAsync(cancellationToken);
     }
 }
-public class TodoDetailModel
-{
-    public Guid Id { get; set; }
-    public string Title { get; set; }
-    public string Priority { get; set; }
-}
-

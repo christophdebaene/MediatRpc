@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\HighlightCode.html" />
+    <None Remove="Templates\Scalar.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\CSharp.handlebars" />
+    <EmbeddedResource Include="Templates\HighlightCode.html" />
+    <EmbeddedResource Include="Templates\Redoc.html" />
+    <EmbeddedResource Include="Templates\Scalar.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="2.1.4" />
+    <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="11.0.0" />
+    <PackageReference Include="NSwag.Core" Version="14.0.3" />
+    <PackageReference Include="NSwag.Core.Yaml" Version="14.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MediatRpc.JsonRpc\MediatRpc.JsonRpc.csproj" />
+  </ItemGroup>
+
+</Project>

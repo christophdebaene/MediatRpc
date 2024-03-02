@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MediatRpc.JsonRpc;
 internal class FileProxy(IFormFile file) : IFile
-{    
+{
     public string ContentType => file.ContentType;
     public string ContentDisposition => file.ContentDisposition;
     public long Length => file.Length;

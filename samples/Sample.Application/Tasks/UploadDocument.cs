@@ -1,22 +1,20 @@
 ﻿using MediatR;
 using MediatRpc;
-using Sample.Domain;
+using Sample.Application.Tasks.Types;
+using System.Text.Json.Serialization;
 
 namespace Sample.Application.Tasks;
 
 [Command]
 public record UploadDocument : IRequest, IFileRequest
 {
-    public Guid TodoId { get; init; }
+    public Guid TaskId { get; init; }
+
+    [JsonIgnore]
     public IReadOnlyList<IFile> Files { get; set; }
 }
-public class UploadDocumentHandler : IRequestHandler<UploadDocument>
+public class UploadDocumentHandler(ApplicationContext context) : IRequestHandler<UploadDocument>
 {
-    private readonly TodoContext _context;
-    public UploadDocumentHandler(TodoContext context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
     public async Task Handle(UploadDocument request, CancellationToken cancellationToken)
     {
         var documents = new List<Document>();
@@ -32,13 +30,11 @@ public class UploadDocumentHandler : IRequestHandler<UploadDocument>
             });
         }
 
-        await _context.AddRangeAsync(documents, cancellationToken);
+        await context.AddRangeAsync(documents, cancellationToken);
 
-        var todo = await _context.FindAsync<Todo>(request.TodoId);
-        todo.Documents = documents.Select(x => x.Id).ToList();
+        var taskItem = await context.Tasks.FindAsync(request.TaskId);
+        taskItem.Documents = documents.Select(x => x.Id).ToList();
 
-        await _context.SaveChangesAsync();
-
-        return;
+        await context.SaveChangesAsync(cancellationToken);
     }
 }

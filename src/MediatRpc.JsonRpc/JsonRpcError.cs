@@ -1,30 +1,17 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace MediatRpc.JsonRpc;
-public class JsonRpcError
+public record JsonRpcError
 {
     [JsonPropertyName("code")]
+    [JsonPropertyOrder(0)]
     public int Code { get; set; }
 
     [JsonPropertyName("message")]
+    [JsonPropertyOrder(1)]
     public string Message { get; set; }
 
     [JsonPropertyName("data")]
-    public object Data { get; set; }
-    public JsonRpcError()
-    {
-    }
-    public JsonRpcError(int code, string message, object data = null)
-    {
-        Code = code;
-        Message = message;
-        Data = data;
-    }
-
-    public static readonly JsonRpcError InvalidRequest = new(JsonRpcErrorCode.InvalidRequest, "Invalid request");
-    public static JsonRpcError MethodNotFound(string methodName) => new(JsonRpcErrorCode.MethodNotFound, $"Method '{methodName}' not found");
-    public static readonly JsonRpcError InvalidParams = new(JsonRpcErrorCode.InvalidParams, "Invalid params");
-    public static readonly JsonRpcError ParseError = new(JsonRpcErrorCode.ParseError, "Parse error");
-    public static JsonRpcError InternalError(Exception exc) => new(JsonRpcErrorCode.InternalError, exc.Message, exc.Data);
+    [JsonPropertyOrder(2)]
+    public object? Data { get; set; }
 }

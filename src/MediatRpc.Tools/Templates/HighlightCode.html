@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hljs {
+            font-size: larger;
+            padding: 0px;
+            margin: 0px;
+            border: 0.01em solid #dddddd;
+        }
+
+        .hljs-copy-button {
+            color: black;
+        }
+
+        .hljs-copy-button:hover {
+            background-color: darkgrey;
+        }
+
+        .wrapper {
+            max-width: 150ch;            
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+    <div class="wrapper">
+        <h1>{{Title}}</h1>
+        <pre><code id="sourceCode" class="language-{{language}}">{{Code}}
+        </code></pre>
+    </div>
+    </main>
+    <script>
+        hljs.addPlugin(new CopyButtonPlugin());        
+        hljs.highlightAll();
+    </script>
+</body>
+        
+</html>

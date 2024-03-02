@@ -1,0 +1,16 @@
+@Api_HostAddress = http://localhost:5075
+
+
+### CreateTaskItem
+POST {{Api_HostAddress}}/calculator/add
+Content-Type: application/json
+
+{
+  "id": "{{$guid}}",
+  "jsonrpc": "2.0"
+  "method": "Calculator.Add",
+  "params": {
+    "X": 5,
+    "Y": 8
+  }    
+}

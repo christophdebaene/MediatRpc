@@ -1,7 +1,6 @@
 ﻿using MediatRpc.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MediatRpc.DependencyInjection;
@@ -15,35 +14,20 @@ public static class ServiceCollectionExtensions
     }
     public static IServiceCollection AddMediatRpc(this IServiceCollection services, MediatRpcConfiguration configuration)
     {
-        if (!configuration.AssembliesToRegister.Any())
+        if (configuration.AssembliesToRegister.Count == 0)
         {
             throw new ArgumentException("No assemblies found to scan. Supply at least one assembly to scan for handlers.");
         }
 
-        var requests = new List<RequestInfo>();
-
-        foreach (var requestType in configuration.AssembliesToRegister.SelectMany(x => x.ScanRequestTypes()))
-        {
-            var handlers = configuration.AssembliesToRegister.SelectMany(x => x.ScanRequestHandlerTypes(requestType));
-
-            if (handlers.Count() > 1)
-                throw new Exception($"Multiple handlers for {requestType.FullName}");
-
-            var requestContract = configuration.ContractResolver(requestType);
-
-            requests.Add(new RequestInfo(
-                requestType,
-                handlers.FirstOrDefault(),
-                requestContract));
-        }
+        var endpoints = configuration.EndpointProvider.Resolve(configuration).ToList();
 
         if (configuration.VerifyRequestType)
         {
-            foreach (var request in requests.Where(x => x.Type == RequestType.Unknown))
+            foreach (var request in endpoints.Where(x => RequestTypeAttribute.Get(x.RequestType) == RequestType.Unknown))
                 throw new System.Exception($"Request {request} is unknown");
         }
 
-        var typeCatalog = new RequestCatalog(requests);
+        var typeCatalog = new EndpointCatalog(endpoints);
         return services.AddSingleton(typeCatalog);
     }
 }
