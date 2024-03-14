@@ -7,13 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace MediatRpc.JsonRpc;
-
 public class JsonRpcRequestResult
 {
-    public JsonRpcRequest? Request { get; set; }
-    public JsonRpcErrorResponse? Error { get; set; }
+    public JsonRpcRequest? Request { get; init; }
+    public JsonRpcErrorResponse? Error { get; init; }
     public static async ValueTask<JsonRpcRequestResult> BindAsync(HttpContext context)
-    {        
+    {
         var serializerOptions = context.RequestServices.GetRequiredService<IOptions<JsonOptions>>().Value.SerializerOptions;
 
         var body = context.Request.HasFormContentType
@@ -25,6 +24,6 @@ public class JsonRpcRequestResult
         {
             Request = request,
             Error = error
-        };        
+        };
     }
 }

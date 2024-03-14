@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text.Json;
 
 namespace MediatRpc.JsonRpc;
-
 public class JsonRpcEndpoint(RequestName name, Type requestType, JsonRpcRequest request)
 {
     public RequestName Name { get; } = name;

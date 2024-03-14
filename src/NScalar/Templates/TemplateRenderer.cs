@@ -1,7 +1,7 @@
 ﻿namespace NScalar.Templates;
 
 public static class TemplateRenderer
-{    
+{
     public static string Render(Dictionary<string, string> args)
     {
         var template = GetTemplate();

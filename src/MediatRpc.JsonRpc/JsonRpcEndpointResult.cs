@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace MediatRpc.JsonRpc;
-
 public class JsonRpcEndpointResult
 {
     public bool IsValid => Error is null;

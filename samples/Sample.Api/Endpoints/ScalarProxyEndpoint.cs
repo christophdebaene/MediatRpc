@@ -16,7 +16,7 @@ public static class ScalarProxyEndpoint
 
             if (error is null)
             {
-                
+
             }
         });
 

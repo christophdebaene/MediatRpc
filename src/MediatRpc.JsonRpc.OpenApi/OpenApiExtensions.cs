@@ -48,7 +48,7 @@ public static class OpenApiExtensions
         endpoints.MapGet(routePrefix, ([FromServices] OpenApiDocument openApiDocument, [FromQuery] string format = "json") =>
         {
             var openApi = format == "json" ? openApiDocument.ToJson() : openApiDocument.ToYaml();
-            return format == "json" ? Results.Text(openApi, "application/json") : Results.Text(openApi, "text/plain");            
+            return format == "json" ? Results.Text(openApi, "application/json") : Results.Text(openApi, "text/plain");
         });
 
         return endpoints;

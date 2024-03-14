@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using NScalar.Templates;
-using System.Collections.Specialized;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;

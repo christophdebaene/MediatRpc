@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Api", "samples\Sampl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatRpc.Tools", "src\MediatRpc.Tools\MediatRpc.Tools.csproj", "{74335413-F7E8-4413-BA92-2935F6D740E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NScalar", "src\NScalar\NScalar.csproj", "{96768E6C-8649-4DAA-A039-ADDD4F2D6B84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NScalar", "src\NScalar\NScalar.csproj", "{96768E6C-8649-4DAA-A039-ADDD4F2D6B84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatRpc.JsonRpc.OpenApi", "src\MediatRpc.JsonRpc.OpenApi\MediatRpc.JsonRpc.OpenApi.csproj", "{D878FCF5-88FD-40D6-BCBE-454D5D76BFFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatRpc.JsonRpc.OpenApi", "src\MediatRpc.JsonRpc.OpenApi\MediatRpc.JsonRpc.OpenApi.csproj", "{D878FCF5-88FD-40D6-BCBE-454D5D76BFFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
